@@ -57,7 +57,7 @@ public class StudentService {
             return false;
         }
 
-        if(students.containsKey(student.getId())){
+        if(!students.containsKey(student.getId())){
             return false;
         }
 
