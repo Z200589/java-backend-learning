@@ -11,12 +11,24 @@ public class StudentService {
     }
 
     public boolean addStudent(Student student){
-        if(!students.containsKey(student.getId())){
+        /*if(!students.containsKey(student.getId())){
             students.put(student.getId(),student);
             return true;
         }else{
             return false;
+        }*/
+
+        if(student == null){
+            return false;
         }
+
+        if(students.containsKey(student.getId())){
+            return false;
+        }
+
+        students.put(student.getId(),student);
+
+        return true;
     }
 
     public Student findStudentById(int id){
