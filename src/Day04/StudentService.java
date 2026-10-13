@@ -53,12 +53,17 @@ public class StudentService {
     }
 
     public boolean updateStudent(Student student){
-        if(students.containsKey(student.getId())){
-            students.put(student.getId(),student);
-            return true;
-        }else{
+        if(student == null){
             return false;
         }
+
+        if(students.containsKey(student.getId())){
+            return false;
+        }
+
+        students.put(student.getId(),student);
+
+        return true;
     }
 
 }
