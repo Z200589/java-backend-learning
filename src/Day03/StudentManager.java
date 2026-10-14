@@ -1,6 +1,6 @@
 package Day03;
 
-import Day1.Student;
+import Day01.Student;
 
 import java.util.*;
 
