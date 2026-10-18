@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息录入</title>
+</head>
+<body>
+<h1>学生信息录入</h1>
+
+<!-- TODO 1：创建学号、姓名、年龄三个输入框 -->
+<input id = "studentId" placeholder="学号">
+<input id = "studentName" placeholder="姓名">
+<input id = "studentAge" placeholder="年龄">
+<!-- TODO 2：创建提交按钮 -->
+<input type = "button" id = "submitBtn" value = "提交">
+<script>
+    // TODO 3：获取三个输入框的内容
+
+    const studentId = document.getElementById("studentId")
+    const studentName = document.getElementById("studentName")
+    const studentAge = document.getElementById("studentAge")
+    // TODO 4：为按钮添加点击事件
+
+    document.getElementById("submitBtn").addEventListener("click", function() {
+
+        // 1. 判断学号、姓名、年龄是否有任意一项为空
+        if (studentId.value === "" || studentName.value === "" || studentAge.value === "") {
+
+            // 2. 提示用户填写完整信息
+
+            alert("请输入完整信息")
+        } else {
+
+            // 3. 提示学生信息录入成功
+
+            alert("学生信息录入成功")
+        }
+
+    });
+    // TODO 5：使用 if-else 检查输入是否完整
+
+</script>
+</body>
+</html>

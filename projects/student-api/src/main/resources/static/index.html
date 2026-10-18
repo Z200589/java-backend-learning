@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息列表</title>
+</head>
+<body>
+<!-- TODO 1：添加一级标题，内容为学生信息列表 -->
+<h1>学生信息列表</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <!-- TODO 2：添加学号、姓名、年龄三个表头 -->
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody id="studentsBody">
+    <!-- TODO 3：这里暂时留空，后面由 JavaScript 填充 -->
+    </tbody>
+</table>
+
+<script>
+    fetch('/students')
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+
+        const studentsBody = document.getElementById("studentsBody");
+
+        data.forEach(student =>{
+            // TODO A：创建一行 tr
+
+            const row = document.createElement("tr");
+            // TODO B：创建三个 td 单元格
+
+            const idCell = document.createElement("td");
+            const nameCell = document.createElement("td");
+            const ageCell = document.createElement("td");
+            // TODO C：分别将 student.id、student.name、student.age
+            // 设置为三个单元格的文本
+
+            idCell.textContent = student.id;
+            nameCell.textContent = student.name;
+            ageCell.textContent = student.age;
+            // TODO D：将三个单元格添加到这一行
+
+            row.appendChild(idCell);
+            row.appendChild(nameCell);
+            row.appendChild(ageCell);
+
+            // TODO E：将这一行添加到 studentsBody
+
+            studentsBody.appendChild(row);
+
+        })
+    });
+</script>
+
+</body>
+</html>
