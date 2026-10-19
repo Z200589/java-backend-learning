@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息列表</title>
+</head>
+<body>
+<!-- TODO 1：添加一级标题，内容为学生信息列表 -->
+<h1>学生信息列表</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <!-- TODO 2：添加学号、姓名、年龄三个表头 -->
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody id="studentsBody">
+    <!-- TODO 3：这里暂时留空，后面由 JavaScript 填充 -->
+    </tbody>
+</table>
+
+<h2>按学号查询学生</h2>
+<!-- TODO 2：添加数字输入框 -->
+<!-- id 必须为 studentId -->
+<input type = "text" id = "studentId">
+
+<button id = "searchBtn">查询</button>
+<div id = "searchResult"></div>
+
+<script>
+    fetch('/students')
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+
+        const studentsBody = document.getElementById("studentsBody");
+
+        data.forEach(student =>{
+            // TODO A：创建一行 tr
+
+            const row = document.createElement("tr");
+            // TODO B：创建三个 td 单元格
+
+            const idCell = document.createElement("td");
+            const nameCell = document.createElement("td");
+            const ageCell = document.createElement("td");
+            // TODO C：分别将 student.id、student.name、student.age
+            // 设置为三个单元格的文本
+
+            idCell.textContent = student.id;
+            nameCell.textContent = student.name;
+            ageCell.textContent = student.age;
+            // TODO D：将三个单元格添加到这一行
+
+            row.appendChild(idCell);
+            row.appendChild(nameCell);
+            row.appendChild(ageCell);
+
+            // TODO E：将这一行添加到 studentsBody
+
+            studentsBody.appendChild(row);
+
+        })
+    });
+
+    const searchBtn = document.getElementById("searchBtn");
+
+    searchBtn.addEventListener("click",function(){
+        // TODO：获取 studentId 输入框中的值
+
+        const studentId = document.getElementById("studentId").value;
+        // TODO：在控制台输出这个值
+        // TODO 1：使用 fetch 请求 /students/{studentId}
+        if (!studentId.trim()) {
+            document.getElementById("searchResult").textContent = "请输入学号";
+            return;
+        }
+        fetch(`/students/${studentId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("学生不存在");
+                }
+
+                // TODO 1：返回 JSON 数据
+
+                return response.json();
+            })
+            .then(data => {
+                // TODO 2：打印查询到的学生信息
+                const searchResult = document.getElementById("searchResult");
+
+                searchResult.textContent = `学号：${data.id}, 姓名：${data.name}, 年龄：${data.age}`;
+                console.log(data)
+            })
+            .catch(error => {
+                // TODO 3：打印错误信息
+
+                const searchResult = document.getElementById("searchResult");
+                searchResult.textContent = error.message;
+                console.log(error)
+            });
+
+
+    })
+</script>
+
+</body>
+</html>
